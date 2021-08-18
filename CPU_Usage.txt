@@ -1,0 +1,6 @@
+Current path: C:\Users\mares\Desktop\veeam 
+The CPU usage is: 14.8 in 5 second 
+RAM memory used: 42.0 % 
+Working set: 17024389120 
+Private bytes:9877770240 
+Number of open handles: 303 
