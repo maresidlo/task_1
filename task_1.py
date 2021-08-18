@@ -2,13 +2,13 @@ import os
 import psutil
 import pathlib
 
-print("task is running")
+print("task.txt is running")
 
 # Measuring CPU in time interval
 interval = 5
 
 # creating file to put information in
-file = "CPU_Usage.txt"
+file = "Usage.txt"
 
 # Current working directory
 cwd = os.getcwd()
