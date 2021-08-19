@@ -49,5 +49,4 @@ if vs == "y":
     plt.title("TIME/CPU ratio")
     plt.subplots_adjust(left=0.14, bottom=0.14)
     plt.show()
-else:
     input("click to exit")
