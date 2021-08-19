@@ -1,60 +1,52 @@
 import os
 import psutil
 import pathlib
-
-print("task.txt is running")
-
-# Measuring CPU in time interval
-interval = 5
-
-# creating file to put information in
-file = "Usage.txt"
-
-# Current working directory
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from itertools import count
+file = "Usage.csv"
 cwd = os.getcwd()
-
-# returning process id to measure number of handles
-process = psutil.Process(os.getpid())
-
-# Absolute file path
 path = os.path.abspath(file)
-Currect_path = cwd
+process = psutil.Process(os.getpid())
+time_interval = int(input("set mesuring time interval(in seconds): "))
+time_range = int(input("set lenght of measuring: "))
 
-# Measuring CPU through interval
-CPU_usage = str(psutil.cpu_percent(interval))
 
-# Measuring RAM used to run this process
-# psutil.virtual_memory() outputs list of 5 numbers, total memory,
-# used memory, percentage, available memory and free memory
-RAM_memory = str(psutil.virtual_memory()[2])
+TIME, CPU, RAM = [], [], []
+print("task.txt is running")
+with open(file, "w", newline="") as csvfile:
+    for i in range(1, time_range+1):
+        if i % time_interval == 0 or i == time_range:
+            CPU_usage = str(psutil.cpu_percent(time_interval))
+            RAM_memory = str(psutil.virtual_memory()[2])
+            TIME.append(str(i))
+            CPU.append(str(CPU_usage))
+            RAM.append(str(RAM_memory))
+            print(i, "  ", CPU_usage, "  ", RAM_memory)
 
-# Number of working set bytes
-Working_set = str(psutil.virtual_memory()[0])
-
-# Number of private bytes
-private_bytes = str(psutil.virtual_memory()[1])
-
-# Number of handles
 Number_of_handles = psutil.Process.num_handles(process)
-
-# Creating opanable file through console
+Working_set = str(psutil.virtual_memory()[0])
+private_bytes = str(psutil.virtual_memory()[1])
 file_path = pathlib.Path(path).as_uri()
 
-# printing out measured information
-print(f"Current path: {cwd} \n")
-print(f"The CPU usage is: {CPU_usage} % in {interval} second \n")
-print(f"RAM memory used: {RAM_memory} % \n")
-print(f"Working set: {Working_set} \n")
-print(f"Private bytes:{private_bytes} \n")
-print(f"Number of open handles: {Number_of_handles} \n")
-print(f"file path:{file_path}\n")
+new_data = {"TIME": TIME, "CPU": CPU, "RAM": RAM}
+df = pd.DataFrame(data=new_data)
+df.to_csv(file)
 
-# Putting information into text file
-with open(file, "w") as f:
-    f.write(f"Current path: {cwd} \n")
-    f.write(f"The CPU usage is: {CPU_usage} in {interval} second \n")
-    f.write(f"RAM memory used: {RAM_memory} % \n")
-    f.write(f"Working set: {Working_set} \n")
-    f.write(f"Private bytes:{private_bytes} \n")
-    f.write(f"Number of open handles: {Number_of_handles} \n")
-
+print(f"Current path: {cwd} ")
+print(f"Working set: {Working_set} ")
+print(f"Private bytes:{private_bytes} ")
+print(f"Number of open handles: {Number_of_handles}")
+print(f"Data path:{file_path} ")
+vs = input("want to see graph: y/n ")
+if vs == "y":
+    xpoints = TIME
+    plt.xlabel("TIME")
+    ypoints = list(map(float, CPU))
+    plt.ylabel("CPU")
+    plt.plot(xpoints, ypoints)
+    plt.title("TIME/CPU ratio")
+    plt.show()
+else:
+    input()
