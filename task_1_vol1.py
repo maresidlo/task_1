@@ -46,6 +46,7 @@ if vs == "y":
     ypoints = list(map(float, CPU))
     plt.ylabel("CPU")
     plt.plot(xpoints, ypoints)
+    plt.plot(xpoints, list(map(float, RAM)))
     plt.title("TIME/CPU ratio")
     plt.subplots_adjust(left=0.14, bottom=0.14)
     plt.show()

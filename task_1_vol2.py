@@ -13,6 +13,7 @@ info_file = "Usage.csv"
 path = pathlib.PurePath(input("input path: "))
 process_name = path.name
 time_interval = int(input("set measuring time interval(in seconds): "))
+print("TIME CPU_USAGE   RAM")
 shell_process = subprocess.Popen([path], shell=True)
 parent = psutil.Process(shell_process.pid)
 while parent.children() == []:
@@ -30,7 +31,7 @@ while shell_process.poll() is None:
         TIME.append(str(i))
         CPU.append(str(CPU_usage))
         RAM.append(str(RAM_memory))
-        print(i, "  ", CPU_usage, "  ", RAM_memory)
+        print(i,"   ",CPU_usage,"   ",RAM_memory)
 
 # Time of measurement can be added here
 # Subprocess.check_output("Taskkill /PID %d /F" % child_pid) to kill open process
