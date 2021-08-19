@@ -25,6 +25,7 @@ child_pid = children[0].pid
 
 i = 0
 TIME, CPU, RAM = [], [], []
+# collecting data in lists
 while shell_process.poll() is None:
     i += 1
     if i % time_interval == 0:
