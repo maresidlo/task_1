@@ -68,3 +68,4 @@ plt.plot(xpoints, ypoints)
 plt.subplots_adjust(left=0.14, bottom=0.14)
 if vs == "y":
     plt.show()
+input()
