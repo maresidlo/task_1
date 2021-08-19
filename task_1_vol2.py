@@ -6,7 +6,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Creating info_file to put information in
-info_file = "Usage.csv"
+info_file = input("Name of file to save values: ")
+info_file += ".csv"
+
 
 
 # select process
