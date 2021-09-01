@@ -12,7 +12,8 @@ info_file += ".csv"
 # select process
 path = pathlib.PurePath(input("input path: "))
 time_interval = int(input("set measuring time interval(in seconds): "))
-print("TIME CPU_USAGE  RAM        WSET       PSET")
+print("----------------------------------------------")
+print("TIME CPU_USAGE  RAM         WSET       PSET ")
 shell_process = subprocess.Popen([path], shell=True)
 parent = psutil.Process(shell_process.pid)
 
@@ -39,7 +40,7 @@ while shell_process.poll() is None:
         RAM.append(str(RAM_memory))
         WSET.append(str(Working_set))
         PSET.append(str(private_bytes))
-        print(i,"   ",CPU_usage,"   ", RAM_memory, "    ", Working_set, "  ", private_bytes)
+        print(i,"   ",CPU_usage,"    ", RAM_memory, "    ", Working_set, "  ", private_bytes)
 
 # Time of measurement can be added here to end process sooner
 # Subprocess.check_output("Taskkill /PID %d /F" % child_pid) to kill open process
